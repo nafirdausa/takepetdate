@@ -1,0 +1,50 @@
+{% extends 'apps/base.html' %}
+
+{% block content %}
+<div class="grid grid-cols-none gap-4 mt-8">
+    <div class="grid grid-cols-2 gap-4 ml-12">
+        <div class="p-9 leading-relaxed">
+            <h1 class="text-4xl font-bold">
+                Temukan <span class="text-rose-900">Teman Spesial</span> untuk Hewan Peliharaan Anda
+            </h1>
+            <p class="text-lg mt-5">Buat kisah persahabatan unik untuk hewan peliharaan Anda di Animal Match secara GRATIS. Bergabunglah dengan situs kencan untuk hewan ini dan temukan teman bermain atau pasangan untuk peliharaan kesayangan Anda. Teman spesialnya bisa jadi hanya satu klik saja!</p>
+            <div class="mt-5">
+                <button class="btn btn-active btn-error text-white">Join Now</button>
+                <button class="btn btn-outline btn-error">Login</button>
+            </div>
+        </div>
+        <div>
+            {% load static %}
+            <img src="{% static 'image/takpde-anjing.png' %}" alt="My image">
+        </div>
+        
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-12">
+        <div class="mx-36">
+            {% load static %}
+            <img class="size-96" src="{% static 'image/hero2-removebg-preview.png' %}" alt="My image">
+        </div>
+        <div class="p-9 leading-relaxed">
+            <h1 class="text-4xl font-bold">
+                Tentang <span class="text-rose-900">Take Pet Date</span>
+            </h1>
+            <p class="text-lg mt-5">Take Pet Date adalah platform gratis untuk para pemilik hewan yang ingin mencarikan pasangan bagi peliharaannya. Kini Anda bisa dengan mudah menemukan teman bermain atau pasangan untuk anjing atau kucing Anda tanpa perlu repot datang ke petshop atau klinik. Aplikasi ini memungkinkan Anda mencari pasangan hewan di sekitar Anda, sehingga Anda dapat menghemat waktu dan biaya.Tidak hanya itu, Take Pet Date juga dilengkapi dengan riwayat kesehatan hewan, memberikan Anda keyakinan bahwa teman baru hewan Anda sehat dan aman. Daftar sekarang dan temukan pasangan yang tepat untuk hewan peliharaan Anda!</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-none gap-4 mt-12">
+        <div class="p-16 leading-relaxed">
+            <h1 class="text-4xl font-bold text-center">
+                Alasan Kamu <span class="text-rose-900">Harus Join</span> Take Pet Date
+            </h1>
+            <p class="text-lg mt-8 text-justify">Take Pet Date adalah salah satu platform unik yang menawarkan kesempatan bagi pemilik hewan peliharaan untuk mencarikan teman atau pasangan bagi hewan kesayangannya, dan semuanya tersedia GRATIS. Sebagai platform kencan dan jejaring sosial khusus hewan peliharaan, Take Pet Date membantu Anda terhubung dengan pemilik hewan lain yang memiliki tujuan serupa. Apakah Anda mencari pasangan untuk hewan peliharaan Anda, teman bermain, atau hanya ingin bertukar cerita dengan pemilik hewan lain, Take Pet Date menawarkan ruang yang tepat untuk berbagai kebutuhan personal Anda dan peliharaan Anda.
+            <br><br>
+            Take Pet Date juga memungkinkan anda berbagi chat teks, foto, dan video yang memungkinkan Anda untuk melihat langsung pemilik dan hewan peliharaan lain sebelum merencanakan pertemuan. Dengan begitu, Anda dapat merasa lebih yakin dan nyaman dalam proses pencarian teman bagi peliharaan Anda.
+            <br><br>
+            Sejak diluncurkan, Take Pet Date terus berkembang dengan fitur-fitur dan desain baru untuk memberikan pengalaman terbaik bagi para pengguna. Platform ini dirancang agar mudah digunakan dan memberikan akses yang luas bagi komunitas pecinta hewan. Karena sepenuhnya gratis, Anda bisa tetap terhubung dan menghemat biaya yang biasanya dikeluarkan di tempat lain. Jadi, daftarkan diri Anda dan temukan pasangan yang tepat untuk hewan kesayangan Anda di Take Pet Date!</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
