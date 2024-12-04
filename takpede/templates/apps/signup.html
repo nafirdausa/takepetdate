@@ -1,0 +1,60 @@
+{% extends 'apps/base.html' %}
+
+{% block content %}
+<section class="section">
+    <div class="grid grid-cols-none gap-4 mt-8">
+        <div class="grid grid-cols-2 gap-4 ml-12">
+            <div class="w-full md:w-1/2 px-6">
+                <h1 class="text-2xl font-bold mb-4">WELCOME BACK!</h1>
+                <p class="text-gray-600 mb-4">
+                    Have an account? 
+                    <a href="{% url 'signin' %}" class="text-red-500 hover:underline">Sign in</a>
+                </p>
+                <form action="/signup/" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                        <input type="text" id="username" name="username" class="border rounded-full py-2 px-4 mt-1 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="username" required style="width: 400px;" style="width: 400px;">
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" class="border rounded-full py-2 px-4 mt-1 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="email" required style="width: 400px;">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password1" name="password1" class="border rounded-full py-2 px-4 mt-1 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="password" required style="width: 400px;">
+                            <button type="button" class="absolute inset-y-0 -right-32 flex items-center text-gray-400 hover:text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M15 12a3 3 0 10-6 0 3 3 0 006 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0-3.866-5.373-9-9-9S3 8.134 3 12s5.373 9 9 9 9-5.134 9-9z" />
+                                    </svg>                                                                                                                             
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password2" class="block text-sm font-medium text-gray-700">Konfirmasi Password</label>
+                        <div class="relative">
+                            <input type="password" id="password2" name="password2" class="border rounded-full py-2 px-4 mt-1 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="confirm password" required style="width: 400px;">
+                            <button type="button" class="absolute inset-y-0 -right-32 flex items-center text-gray-400 hover:text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M15 12a3 3 0 10-6 0 3 3 0 006 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0-3.866-5.373-9-9-9S3 8.134 3 12s5.373 9 9 9 9-5.134 9-9z" />
+                                    </svg>                                                                                                                             
+                            </button>
+                        </div>
+                        <a href="#" class="text-sm text-gray-600 hover:underline mt-1 block text-left">Forget password?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full mt-4" style="width: 400px;">
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+            <div>
+                {% load static %}
+                <img src="{% static 'image/takpde-anjing.png' %}" alt="My image" width="900px">
+            </div>    
+        </div>
+</section>
+
+{% endblock%}

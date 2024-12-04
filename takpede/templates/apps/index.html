@@ -9,8 +9,12 @@
             </h1>
             <p class="text-lg mt-5">Buat kisah persahabatan unik untuk hewan peliharaan Anda di Animal Match secara GRATIS. Bergabunglah dengan situs kencan untuk hewan ini dan temukan teman bermain atau pasangan untuk peliharaan kesayangan Anda. Teman spesialnya bisa jadi hanya satu klik saja!</p>
             <div class="mt-5">
-                <button class="btn btn-active btn-error text-white">Join Now</button>
-                <button class="btn btn-outline btn-error">Login</button>
+                <a href="{% url 'signup' %}">
+                    <button class="btn btn-active btn-error text-white">Join Now</button>
+                </a>
+                <a href="{% url 'signin' %}">
+                    <button class="btn btn-outline btn-error">Login</button>
+                </a>
             </div>
         </div>
         <div>
