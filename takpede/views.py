@@ -34,3 +34,6 @@ def signin(request):
         else:
             messages.error(request, 'Username atau Password salah')
     return render(request, 'apps/signin.html')
+
+def update_profile(request):
+    return render(request, 'apps/profile.html')

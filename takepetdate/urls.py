@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from takpede.views import index, signup, signin
+from takpede.views import index, signup, signin, update_profile
 from find_match.views import find_match, find_match_detail
 from notification.views import notification
 from django.contrib.auth import views
@@ -31,4 +31,5 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('signin/', signin, name='signin'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('profile/', update_profile, name='profile'),
 ]
