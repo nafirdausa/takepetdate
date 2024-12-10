@@ -21,6 +21,8 @@ from takpede.views import index, signup, signin, update_profile
 from find_match.views import find_match, find_match_detail
 from notification.views import notification
 from django.contrib.auth import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', index, name='index'),
@@ -33,3 +35,5 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('profile/', update_profile, name='profile'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

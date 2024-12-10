@@ -6,108 +6,163 @@
     <div class="p-4">
         <h1 class="text-xl font-bold">Profile</h1>
     </div>
+    <form method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
+    {% csrf_token %}
     <div class="flex flex-row justify-between items-stretch gap-4 ">
-        <!-- Kartu -->
-        <div class="basis-1/4 p-4">
-            <div class="card card-compact bg-base-100 w-96 shadow-xl">
-                <figure>
-                    <img
-                        src="https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp"
-                        alt="Shoes" />
-                </figure>
-                <div class="card-body">
-                    <div class="card-actions justify-end">
-                        <button class="btn w-full bg-pink-700 text-white">Change Profile</button>
+            <!-- <div class="basis-1/4 p-4">
+                <div class="card card-compact bg-base-100 w-96 shadow-xl">
+                    <figure>
+                        <img
+                            src="{{ user.profile.foto.url|default:'https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp' }}"
+                            alt="Profile Photo" />
+                    </figure>
+                    <div class="card-body">
+                        <div class="card-actions justify-end">
+                            <label for="file-input" class="block w-full">
+                                <span class="w-full cursor-pointer rounded bg-pink-700 hover:bg-pink-600 text-white py-2 px-32 my-4">Change Profile</span>
+                                <input id="file-input" type="file" class="hidden z-10 w-full" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="basis-1/4 p-4">
+                <div class="card card-compact bg-base-100 w-96 shadow-xl">
+                    <figure>
+                        <!-- <img id="profile-img" 
+                             src="{{ user.profile.foto.url|default:'https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp' }}"
+                             alt="Profile Photo" /> -->
+                        <img
+                        src="{{ user.foto.url|default:'https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp' }}"
+                        alt="Profile Photo">
+                    </figure>
+                    <div class="card-body">
+                        <div class="card-actions justify-end">
+                            <label for="file-input" class="block w-full">
+                                <span class="w-full cursor-pointer rounded bg-pink-700 hover:bg-pink-600 text-white py-2 px-32 my-4">Change Profile</span>
+                                <input id="file-input" type="file" name="foto" class="hidden z-10 w-full" onchange="previewImage(event)" />
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Data Profile -->
-        <div class="basis-3/4 p-4">
-            <div class="grid grid-rows-4 gap-2">
-                <div class="grid grid-cols-2 gap-6">
+            <div class="basis-3/4 p-4">
+                <div class="grid grid-rows-4 gap-2">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Nama</span>
+                                </div>
+                                <input type="text" value="{{ user.username }}" placeholder="kk" class="input input-bordered w-full max-w-xs" disabled />
+                            </label>
+                        </div>
+                        <div>
+                            <label class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Email</span>
+                                </div>
+                                <input type="text" value="{{ user.email }}" placeholder="Type here" class="input input-bordered w-full max-w-xs" disabled />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label for="alamat" class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Domisili</span>
+                                </div>
+                                <input name="alamat" value="{{ user.alamat }}" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                            </label>
+                        </div>
+                        <div>
+                            <label for="spesies" class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Spesies</span>
+                                </div>
+                                <input name="spesies" value="{{ user.spesies }}" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label for="umur" class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Umur (tahun)</span>
+                                </div>
+                                <input name="umur" value="{{ user.umur }}" type="number" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                            </label>
+                        </div>
+                        <div>
+                            <label for="no_hp" class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">No Telepon</span>
+                                </div>
+                                <input name="no_hp" value="{{ user.no_hp }}" type="number" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label for="jenis_hewan" class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Jenis Hewan</span>
+                                </div>
+                                <select name="jenis_hewan" class="select select-bordered">
+                                    <option disabled selected>Pilih Jenis Hewan</option>
+                                    <option value="Anjing" {% if user.jenis_hewan == "Anjing" %}selected {% endif %}>Anjing</option>
+                                    <option value="Kucing" {% if user.jenis_hewan == "Kucing" %}selected {% endif %}>Kucing</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div>
+                            <label for="jenis_kelamin" class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Jenis Hewan</span>
+                                </div>
+                                <select name="jenis_kelamin" class="select select-bordered">
+                                    <option disabled selected>Pilih Jenis Hewan</option>
+                                    <option value="Jantan" {% if user.jenis_kelamin == "Jantan" %}selected {% endif %}>Jantan</option>
+                                    <option value="Betina" {% if user.jenis_kelamin == "Betina" %}selected {% endif %}>Betina</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
                     <div>
-                        <label class="form-control w-full max-w-xs">
+                        <label for="short_deskripsi" class="form-control w-full">
                             <div class="label">
-                            <span class="label-text">Nama</span>
+                            <span class="label-text">Short Description</span>
                             </div>
-                            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+                            <input name="short_deskripsi" value="{{ user.short_deskripsi }}" type="text" placeholder="Type here" class="input input-bordered w-full" />
                         </label>
                     </div>
                     <div>
-                        <label class="form-control w-full max-w-xs">
+                        <label for="deskripsi" class="form-control w-full">
                             <div class="label">
-                            <span class="label-text">Email</span>
+                            <span class="label-text">Long Description</span>
                             </div>
-                            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
-                        </label>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <label class="form-control w-full max-w-xs">
-                            <div class="label">
-                            <span class="label-text">Domisili</span>
-                            </div>
-                            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
-                        </label>
-                    </div>
-                    <div>
-                        <label class="form-control w-full max-w-xs">
-                            <div class="label">
-                            <span class="label-text">Spesies</span>
-                            </div>
-                            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
-                        </label>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <label class="form-control w-full max-w-xs">
-                            <div class="label">
-                            <span class="label-text">Jenis Hewan</span>
-                            </div>
-                            <select class="select select-bordered">
-                                <option disabled selected>Pilih Jenis Hewan</option>
-                                <option>Anjing</option>
-                                <option>Kucing</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="form-control w-full max-w-xs">
-                            <div class="label">
-                            <span class="label-text">Jenis Kelamin</span>
-                            </div>
-                            <select class="select select-bordered">
-                                <option disabled selected>Pilih Jenis Kelamin</option>
-                                <option>Jantan</option>
-                                <option>Betina</option>
-                            </select>
+                            <textarea name="deskripsi" value="" type="text" placeholder="Bio" class="textarea textarea-bordered textarea-lg w-full">{{ user.deskripsi }}</textarea>
                         </label>
                     </div>
                 </div>
                 <div>
-                    <label class="form-control w-full">
-                        <div class="label">
-                        <span class="label-text">Short Description</span>
-                        </div>
-                        <input type="text" placeholder="Type here" class="input input-bordered w-full" />
-                    </label>
+                    <button type="submit" class="mt-8 btn w-full bg-pink-700 hover:bg-pink-600 text-white">Update Profile</button>
                 </div>
-                <div>
-                    <label class="form-control w-full">
-                        <div class="label">
-                        <span class="lab;;el-text">Long Description</span>
-                        </div>
-                        <textarea placeholder="Bio" class="textarea textarea-bordered textarea-lg w-full"></textarea>
-                    </label>
-                </div>
-                <!-- umur sama nomor hp yang belum -->
             </div>
         </div>
-    </div>
+    </form>
+
 </div>
 
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('profile-img');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 {% endblock %}

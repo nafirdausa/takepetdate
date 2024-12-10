@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import CustomUser
 from .forms import CustomUserCreationForm
+from .forms import UpdateProfileForm
 
 
 # Create your views here.
@@ -35,5 +37,16 @@ def signin(request):
             messages.error(request, 'Username atau Password salah')
     return render(request, 'apps/signin.html')
 
+
+@login_required
 def update_profile(request):
-    return render(request, 'apps/profile.html')
+    user = request.user  # get user yang sedang login
+    if request.method == "POST":
+        form = UpdateProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return render(request, 'apps/profile.html', {'form': form, 'success': True})  # tetap di halaman yang sama
+    else:
+        form = UpdateProfileForm(instance=user)
+
+    return render(request, 'apps/profile.html', {'form': form})

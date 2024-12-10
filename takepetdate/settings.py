@@ -15,6 +15,17 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# MEDIA_URL = '/static/media/'
+# MEDIA_ROOT = BASE_DIR / 'static/media'
+
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Folder file statis
+MEDIA_ROOT = BASE_DIR / 'media'           # Folder file media
+STATIC_URL = '/static/'  # URL untuk file statis
+MEDIA_URL = '/media/'    # URL untuk file media
+
+
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -42,7 +53,12 @@ INSTALLED_APPS = [
     'takpede',
     'find_match',
     'notification',
+    "crispy_forms",
+    "crispy_tailwind",
 ]
+
+CRISPY_TEMPLATE_PACK = 'tailwind'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
