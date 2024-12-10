@@ -45,8 +45,9 @@ def update_profile(request):
         form = UpdateProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
+            print(f"Updated Photo URL: {user.foto.url}") #debug
             return render(request, 'apps/profile.html', {'form': form, 'success': True})  # tetap di halaman yang sama
     else:
         form = UpdateProfileForm(instance=user)
 
-    return render(request, 'apps/profile.html', {'form': form})
+    return render(request, 'apps/profile.html', {'form': form,})

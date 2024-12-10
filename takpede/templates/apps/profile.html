@@ -32,9 +32,20 @@
                         <!-- <img id="profile-img" 
                              src="{{ user.profile.foto.url|default:'https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp' }}"
                              alt="Profile Photo" /> -->
+
+                             <!-- <img
+                             id="profile-img"
+                             src="{% if user.foto %}{{ user.foto.url }}{% else %}https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp{% endif %}"
+                             alt="Profile Photo"
+                         />
+                          -->
                         <img
-                        src="{{ user.foto.url|default:'https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp' }}"
-                        alt="Profile Photo">
+                            id="profile-img"
+                            src="{% if user.foto and user.foto.url %}{{ user.foto.url }}{% else %}https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp{% endif %}"
+                            alt="Profile Photo"
+                        />
+
+
                     </figure>
                     <div class="card-body">
                         <div class="card-actions justify-end">

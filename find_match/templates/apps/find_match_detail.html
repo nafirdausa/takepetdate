@@ -44,9 +44,11 @@
         <div class="basis-1/4 p-4">
             <div class="card card-compact bg-base-100 w-96 shadow-xl">
                 <figure>
-                    <img
-                        src="https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp"
-                        alt="Shoes" />
+                    {% if user.foto %}
+                        <img src="/media/{{ user.foto }}" alt="{{user.username}}" height="210">
+                    {% else %}
+                        <img src="https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp" alt="Foto Default">
+                    {% endif %}
                 </figure>
                 <div class="card-body">
                     <div class="flex justify-between">

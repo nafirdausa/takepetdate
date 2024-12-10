@@ -34,6 +34,5 @@ urlpatterns = [
     path('signin/', signin, name='signin'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('profile/', update_profile, name='profile'),
-]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
