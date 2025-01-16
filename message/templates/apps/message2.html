@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TakePetDate Chat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-red-600">TakePetDate</h1>
+    <div class="flex space-x-8">
+      <a href="#" class="text-gray-600 hover:text-gray-800">Find Match</a>
+      <a href="#" class="text-red-500 font-semibold">Message</a>
+      <a href="#" class="text-gray-600 hover:text-gray-800">Find Nearby</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button>
+        <span class="text-green-500">&#128276;</span>
+      </button>
+      <img
+        src="https://via.placeholder.com/30"
+        alt="User Profile"
+        class="w-8 h-8 rounded-full"
+      />
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="flex h-screen">
+    <!-- Sidebar (Chat List) -->
+    <aside class="w-1/3 bg-white shadow-lg p-4 overflow-y-auto">
+      <input
+        type="text"
+        placeholder="Search chats"
+        class="w-full px-4 py-2 border rounded-md mb-4"
+      />
+      <ul>
+        <li class="flex items-center p-3 bg-gray-100 rounded-md mb-2">
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Snowy"
+            class="w-10 h-10 rounded-full"
+          />
+          <div class="ml-3">
+            <h3 class="text-lg font-semibold">Snowy</h3>
+            <p class="text-sm text-gray-500 truncate">
+              Hey there! Did you catch...
+            </p>
+          </div>
+        </li>
+        <li class="flex items-center p-3 hover:bg-gray-100 rounded-md mb-2">
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Shadow"
+            class="w-10 h-10 rounded-full"
+          />
+          <div class="ml-3">
+            <h3 class="text-lg font-semibold">Shadow</h3>
+            <p class="text-sm text-gray-500 truncate">
+              When will the work be ready???
+            </p>
+          </div>
+        </li>
+        <li class="flex items-center p-3 bg-red-100 border-l-4 border-red-500 rounded-md mb-2">
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Milo"
+            class="w-10 h-10 rounded-full"
+          />
+          <div class="ml-3">
+            <h3 class="text-lg font-semibold">Milo</h3>
+            <p class="text-sm text-gray-500 truncate">
+              Awesome! I love chocolate chip...
+            </p>
+          </div>
+        </li>
+        <!-- Add more chat items here -->
+      </ul>
+    </aside>
+
+    <!-- Chat Window -->
+    <main class="flex-1 bg-white flex flex-col justify-between">
+      <!-- Chat Header -->
+      <div class="bg-red-500 p-4 flex items-center space-x-4">
+        <img
+          src="https://via.placeholder.com/40"
+          alt="Milo"
+          class="w-12 h-12 rounded-full"
+        />
+        <h2 class="text-2xl font-bold text-white">Milo</h2>
+      </div>
+
+      <!-- Chat Messages -->
+      <div class="flex-1 p-6 overflow-y-auto space-y-4">
+        <div class="flex items-start space-x-4">
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Meera"
+            class="w-10 h-10 rounded-full"
+          />
+          <div>
+            <p class="bg-gray-100 p-3 rounded-md">
+              Hey! Don't forget our pet date at your place this Saturday. I'm
+              bringing my whiskas for your cat too...
+            </p>
+            <span class="text-xs text-gray-500">3:17 PM</span>
+          </div>
+        </div>
+        <div class="flex items-start justify-end space-x-4">
+          <div>
+            <p class="bg-red-100 p-3 rounded-md">
+              Sounds good, Meera! 😻 Can't wait for Saturday! By the way, do
+              you think we should get some snack cat?
+            </p>
+            <span class="text-xs text-gray-500">3:25 PM</span>
+          </div>
+          <img
+            src="https://via.placeholder.com/40"
+            alt="User"
+            class="w-10 h-10 rounded-full"
+          />
+        </div>
+        <!-- Add more messages here -->
+      </div>
+
+      <!-- Chat Input -->
+      <div class="p-4 flex items-center space-x-4 border-t">
+        <input
+          type="text"
+          placeholder="Type a message"
+          class="w-full px-4 py-2 border rounded-full"
+        />
+        <button class="bg-red-500 text-white px-4 py-2 rounded-full">
+          Send
+        </button>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -3,33 +3,68 @@
 {% block content %}
 
     <div class="grid grid-cols-3 gap-4 p-8 ml-4 mt-8">
-        {% for user in users %}
+
+
+        {% for post in posts %}
         <div>
             <div class="card glass w-96 mt-4">
                 <figure>
-                    {% if user.foto %}
-                        <img src="/media/{{ user.foto }}" alt="{{user.username}}" height="210">
+                    {% if post.user.foto %}
+                        <img src="/media/{{ post.user.foto }}" alt="{{ post.user.username }}" height="210">
                     {% else %}
                         <img src="https://dianisa.com/wp-content/uploads/2023/06/1-Foto-Ikon-Profil-WA-Baru.jpg.webp" alt="Foto Default">
                     {% endif %}
                 </figure>
                 <div class="card-body">
-                <div class="flex justify-between">
-                    <h2 class="card-title">{{ user.username|default:"Guest" }}</h2>
-                    <button class="cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                      </svg>
-                    </button>
-                </div>
-                <p>{{ user.short_deskripsi|default:"This is the description of pet, you can read the description here" }}</p>
-                <div class="card-actions justify-end">
-                    <a href="{% url 'find_match_detail' user.id %}" class="btn w-full bg-pink-700 text-white"><button >View Profile</button></a>
-                </div>
+                    <div class="flex justify-between">
+                        <h2 class="card-title">{{ post.user.username|default:"Guest" }}</h2>
+                        <button class="cursor-pointer" data-post-id="{{ post.id }}">
+                            <a href="{% url 'like' post.id %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="{% if post.is_liked_by_user %}red{% else %}white{% endif %}" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                </svg>
+                            </a>
+                            <!-- <span>{{ post.likes }} likes</span> -->
+                        </button>
+                    </div>
+                    <p>{{ post.user.short_deskripsi|default:"This is the description of the pet, you can read the description here" }}</p>
+                    <div class="card-actions justify-end">
+                        <a href="{% url 'find_match_detail' post.user.id %}" class="btn w-full bg-pink-700 text-white"><button>View Profile</button></a>
+                    </div>
                 </div>
             </div>
         </div>
         {% endfor %}
+
+
     </div>
 
+    <script>
+        // Tunggu hingga halaman selesai dimuat
+        document.addEventListener("DOMContentLoaded", function() {
+            // Pilih semua tombol like
+            const likeButtons = document.querySelectorAll(".like-btn");
+    
+            likeButtons.forEach(button => {
+                button.addEventListener("click", function(event) {
+                    // Mencegah link a agar tidak langsung redirect
+                    event.preventDefault();
+    
+                    // Toggle warna tombol
+                    const svg = button.querySelector("svg");
+                    if (svg.getAttribute("fill") === "red") {
+                        svg.setAttribute("fill", "none"); // Reset warna
+                    } else {
+                        svg.setAttribute("fill", "red"); // Ubah ke merah
+                    }
+    
+                    // Redirect setelah toggle (opsional)
+                    window.location.href = button.querySelector("a").getAttribute("href");
+                });
+            });
+        });
+    </script>
+     
+    
 
 {% endblock %}

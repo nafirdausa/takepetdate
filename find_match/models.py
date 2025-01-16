@@ -2,20 +2,18 @@ from django.db import models
 from takpede.models import CustomUser
 
 # Create your models here.
-class Likers(models.Model):
-    # pengguna yang mendapatkan like.
-    user_id = models.ForeignKey(
-        CustomUser, 
-        on_delete=models.CASCADE, 
-        related_name="liked_by"  # Untuk membedakan relasi jika ada ForeignKey lain
-    )
-    # pengguna yang memberikan like.
-    liker_id = models.ForeignKey(
-        CustomUser, 
-        on_delete=models.CASCADE, 
-        related_name="likers"  # Memberikan nama relasi unik untuk FK kedua
-    )
-    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp kapan "like" dibuat
 
-    def __str__(self):
-        return f"{self.liker.username} liked {self.user.username}"
+class Post(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    likes = models.IntegerField(default = 0)
+
+    def is_liked_by(self, user):
+        return self.post_likes.filter(user=user).exists()
+
+    def get_absolute_url(self):
+        return reverse('find_match', args=[str(self.id)])
+
+class Likes(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_likes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
+

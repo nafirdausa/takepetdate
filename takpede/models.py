@@ -34,3 +34,11 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        super().save(*args, **kwargs)  # Simpan user
+
+        if is_new:
+            from find_match.models import Post  # Impor dilakukan di dalam metode
+            Post.objects.create(user=self, likes=0)

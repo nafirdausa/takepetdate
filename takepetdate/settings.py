@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'takpede',
     'find_match',
     'notification',
+    'message',
     "crispy_forms",
     "crispy_tailwind",
 ]

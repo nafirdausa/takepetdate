@@ -13,7 +13,7 @@ class UpdateProfileForm(forms.ModelForm):
         fields = [
             'no_hp', 'spesies', 'alamat', 'umur', 
             'jenis_hewan', 'jenis_kelamin', 'short_deskripsi', 
-            'deskripsi', 'foto'
+            'deskripsi', 'foto', 'latitude', 'longitude'
         ]
         widgets = {
             'alamat': forms.TextInput(attrs={'class': 'input input-bordered'}),

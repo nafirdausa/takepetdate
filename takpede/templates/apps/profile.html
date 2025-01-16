@@ -78,6 +78,52 @@
                             </label>
                         </div>
                     </div>
+                    <!-- <button id="find-me" class="btn full rounded bg-pink-700 hover:bg-pink-600 text-white py-2 px-32 my-6">Get Current Location</button>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Longitude</span>
+                                </div>
+                                <input id="longitude" type="text" value="{{ user.longitude }}" placeholder="kk" class="input input-bordered w-full max-w-xs" disabled />
+                            </label>
+                        </div>
+                        <div>
+                            <label class="form-control w-full max-w-xs">
+                                <div class="label">
+                                <span class="label-text">Latitude</span>
+                                </div>
+                                <input id="latitude" type="text" value="{{ user.latitude }}" placeholder="Type here" class="input input-bordered w-full max-w-xs" disabled />
+                            </label>
+                        </div>
+                    </div> -->
+                    
+                    <button id="find-me" class="btn full rounded bg-pink-700 hover:bg-pink-600 text-white py-2 px-32 my-6">
+                        Get Current Location
+                    </button>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="form-control w-full max-w-xs">
+                                <div class="label">
+                                    <span class="label-text">Longitude</span>
+                                </div>
+                                <input id="longitude" type="text" value="{{ user.longitude }}" class="input input-bordered w-full max-w-xs"  />
+                                <input type="hidden" name="latitude" id="form-latitude" value="{{ user.latitude|default:'' }}">
+                            </label>
+                        </div>
+                        <div>
+                            <label class="form-control w-full max-w-xs">
+                                <div class="label">
+                                    <span class="label-text">Latitude</span>
+                                </div>
+                                <input id="latitude" type="text" value="{{ user.latitude }}" class="input input-bordered w-full max-w-xs"  />
+                                <input type="hidden" name="longitude" id="form-longitude" value="{{ user.longitude|default:'' }}">
+                            </label>
+                        </div>
+                    </div>
+                    
+
                     <div class="grid grid-cols-2 gap-6">
                         <div>
                             <label for="alamat" class="form-control w-full max-w-xs">
@@ -130,7 +176,7 @@
                         <div>
                             <label for="jenis_kelamin" class="form-control w-full max-w-xs">
                                 <div class="label">
-                                <span class="label-text">Jenis Hewan</span>
+                                <span class="label-text">Jenis Kelamin</span>
                                 </div>
                                 <select name="jenis_kelamin" class="select select-bordered">
                                     <option disabled selected>Pilih Jenis Hewan</option>
@@ -167,6 +213,7 @@
 </div>
 
 <script>
+    // up image load
     function previewImage(event) {
         const reader = new FileReader();
         reader.onload = function() {
@@ -175,5 +222,53 @@
         };
         reader.readAsDataURL(event.target.files[0]);
     }
+
+    document.getElementById("find-me").addEventListener("click", function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+
+    function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        // Update input fields (disabled)
+        document.getElementById("latitude").value = latitude;
+        document.getElementById("longitude").value = longitude;
+
+        // Update hidden form fields
+        document.getElementById("form-latitude").value = latitude;
+        document.getElementById("form-longitude").value = longitude;
+
+        // Kirim data ke backend (fetch)
+        fetch("{% url 'profile' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            body: new URLSearchParams({
+                "latitude": latitude,
+                "longitude": longitude
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);  // Pesan sukses
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    }
+
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+        alert(`Unable to retrieve location: ${err.message} (Code: ${err.code})`);
+    }
+});
+
 </script>
 {% endblock %}
